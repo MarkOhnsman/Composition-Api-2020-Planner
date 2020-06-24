@@ -35,7 +35,6 @@ export default class Startup {
     app.use("", express.static(Paths.Public));
     Startup.registerErrorHandlers(app);
   }
-
   static registerErrorHandlers(app) {
     // NOTE SEND 404 for any unknown routes
     app.use(

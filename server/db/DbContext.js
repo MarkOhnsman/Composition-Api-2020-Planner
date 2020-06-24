@@ -1,11 +1,15 @@
 import mongoose from "mongoose";
-import ValueSchema from "../models/Value";
-import ProfileSchema from "../models/Profile";
-import BoardSchema from '../models/Board'
+import Meeting from "../models/Meeting";
+import Profile from "../models/Profile";
+import MeetingNote from "../models/MeetingNote";
+import Organization from "../models/Organization";
+import OrgMember from "../models/OrgMember";
 class DbContext {
-  Values = mongoose.model("Value", ValueSchema);
-  Profile = mongoose.model("Profile", ProfileSchema);
-  Boards = mongoose.model("Board", BoardSchema)
+  Meetings = mongoose.model("Meeting", Meeting);
+  MeetingNotes = mongoose.model("MeetingNote", MeetingNote)
+  Organizations = mongoose.model("Organization", Organization)
+  OrgMembers = mongoose.model("OrgMember", OrgMember)
+  Profile = mongoose.model("Profile", Profile);
 }
 
 export const dbContext = new DbContext();
