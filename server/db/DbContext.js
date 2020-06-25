@@ -1,10 +1,9 @@
 import mongoose from "mongoose";
-import Meeting from "../models/Meeting";
+import MeetingSchema from "../schemas/MeetingSchema";
 import ProfileSchema from "../schemas/ProfileSchema";
 import MeetingNoteSchema from "../schemas/MeetingNoteSchema";
 import OrganizationSchema from "../schemas/OrganizationSchema";
 import OrgMemberSchema from "../schemas/OrgMemberSchema";
-import MeetingSchema from "../schemas/MeetingSchema";
 class DbContext {
   Meetings = mongoose.model("Meeting", MeetingSchema);
   MeetingNotes = mongoose.model("MeetingNote", MeetingNoteSchema)
