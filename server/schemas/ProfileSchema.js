@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
-const Profile = new Schema(
+const ProfileSchema = new Schema(
   {
     subs: [{ type: String, unique: true }],
     email: { type: String, lowercase: true, unique: true },
@@ -11,4 +11,4 @@ const Profile = new Schema(
   { timestamps: true, toJSON: { virtuals: true } }
 );
 
-export default Profile;
+export default ProfileSchema;

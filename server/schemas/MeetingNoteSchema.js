@@ -2,13 +2,13 @@ import mongoose from "mongoose"
 let Schema = mongoose.Schema
 let ObjectId = Schema.Types.ObjectId
 
-const Organization = new Schema({
-    title: { type: String, required: true },
-    description: { type: String, required: true },
+const MeetingNoteSchema = new Schema({
+    meeting: { type: ObjectId, ref: "Meeting", unique: true },
+    body: { type: String, required: true },
     creatorEmail: { type: String, required: true }
 }, { timestamps: true, toJSON: { virtuals: true } })
 
-Organization.virtual("creator",
+MeetingNoteSchema.virtual("creator",
     {
         localField: "creatorEmail",
         ref: "Profile",
@@ -16,4 +16,4 @@ Organization.virtual("creator",
         justOne: true
     })
 
-export default Organization
+export default MeetingNoteSchema

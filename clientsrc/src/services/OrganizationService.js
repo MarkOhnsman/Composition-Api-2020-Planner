@@ -1,8 +1,7 @@
 import { api } from "./AxiosService"
 import { AppState } from "../AppState"
 import { Organization } from "../models/Organization"
-
-export const OrganizationService = {
+class OrganizationService {
     async getAll() {
         try {
             let res = await api.get("/organizations")
@@ -11,8 +10,7 @@ export const OrganizationService = {
         catch (e) {
             console.error(e)
         }
-    },
-
+    }
     async getById(id) {
         try {
             let res = await api.get("/organizations/" + id)
@@ -21,17 +19,16 @@ export const OrganizationService = {
         catch (e) {
             console.error(e)
         }
-    },
-
+    }
     async create(org) {
         try {
             let res = await api.post("/organizations", org)
-            AppState.organizations.push(res.data)
+            AppState.organizations.push(new Organization(res.data))
         }
         catch (e) {
             console.error(e)
         }
-    },
+    }
     async edit(update) {
         try {
             let res = await api.put("/organizations/" + update.id, update)
@@ -45,7 +42,7 @@ export const OrganizationService = {
         catch (e) {
             console.error(e)
         }
-    },
+    }
     async delete(id) {
         try {
             await api.delete("/organizations/" + id)
@@ -54,6 +51,7 @@ export const OrganizationService = {
         catch (e) {
             console.error(e)
         }
-    },
-
+    }
 }
+
+export const organizationService = new OrganizationService();
