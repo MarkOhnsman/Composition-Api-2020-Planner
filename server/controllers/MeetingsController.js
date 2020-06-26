@@ -9,9 +9,9 @@ export class MeetingsController extends BaseController {
     constructor() {
         super("api/meetings")
         this.router
-            .use(auth0provider.getAuthorizedUserInfo)
             .get('', this.getAll)
             .get('/:id', this.getById)
+            .use(auth0provider.getAuthorizedUserInfo)
             .post('', this.create)
             .put('/:id', this.edit)
             .delete('/:id', this.delete)

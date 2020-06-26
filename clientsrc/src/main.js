@@ -1,26 +1,33 @@
 import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
-import store from "./store";
 import { Auth0Plugin } from "@bcwdev/auth0-vue";
 import { domain, clientId, audience } from "./authConfig";
+import { AppState } from "./AppState";
+
 
 Vue.use(Auth0Plugin, {
   domain,
   clientId,
   audience,
-  onRedirectCallback: appState => {
+  onRedirectCallback: routerState => {
     router.push(
-      appState && appState.targetUrl
-        ? appState.targetUrl
+      routerState && routerState.targetUrl
+        ? routerState.targetUrl
         : window.location.pathname
     );
   }
 });
 
+// REVIEW Add AppState to prototype for global access
+
+Vue.prototype.AppState = AppState
+
 new Vue({
   router,
-  store,
+  data() {
+    return AppState
+  },
   render: function (h) {
     return h(App);
   }

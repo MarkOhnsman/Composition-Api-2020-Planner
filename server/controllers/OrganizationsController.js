@@ -10,9 +10,9 @@ export class OrganizationsController extends BaseController {
     constructor() {
         super("api/organizations")
         this.router
-            .use(auth0provider.getAuthorizedUserInfo)
             .get('', this.getAll)
             .get('/:id', this.getById)
+            .use(auth0provider.getAuthorizedUserInfo)
             .post('', this.create)
             .put('/:id', this.edit)
             .delete('/:id', this.delete)
@@ -22,7 +22,7 @@ export class OrganizationsController extends BaseController {
     async getAll(req, res, next) {
         try {
             //only gets organizations by user who is logged in
-            let data = await organizationService.getAll(req.userInfo.email)
+            let data = await organizationService.getAll()
             return res.send(data)
         }
         catch (err) { next(err) }

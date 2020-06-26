@@ -3,8 +3,8 @@ import { BadRequest } from "../utils/Errors"
 
 
 class OrganizationService {
-    async getAll(userEmail) {
-        return await dbContext.Organizations.find({ creatorEmail: userEmail }).populate("creator", "name picture")
+    async getAll() {
+        return await dbContext.Organizations.find({}).populate("creator", "name picture")
     }
 
     async getById(id, userEmail) {
@@ -16,8 +16,8 @@ class OrganizationService {
     }
 
     async create(rawData) {
-        let data = await dbContext.Organizations.create(rawData)
-        return data
+        let data = await dbContext.OrgMembers.create(rawData)
+        return data.email
     }
 
     async edit(id, userEmail, update) {

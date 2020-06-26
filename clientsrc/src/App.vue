@@ -8,13 +8,20 @@
 <script>
 import Navbar from "./components/Navbar";
 import { onAuth } from "@bcwdev/auth0-vue";
+import { api } from './services/AxiosService';
+import { profileService } from "./services/ProfileService"
+import { organizationService } from './services/OrganizationService';
+
 export default {
   name: "App",
   async beforeCreate() {
     try {
       await onAuth();
-      this.$store.dispatch("setBearer", this.$auth.bearer);
-      this.$store.dispatch("getProfile");
+      if (this.$auth.bearer) {
+        api.defaults.headers.authorization = this.$auth.bearer
+        await profileService.getProfile();
+      }
+      await organizationService.getAll()
     } catch (err) {
       this.$router.push({ name: "home" });
     }

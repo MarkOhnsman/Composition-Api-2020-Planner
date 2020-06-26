@@ -1,6 +1,6 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <router-link class="navbar-brand" :to="{ name: 'home' }">Kanban</router-link>
+    <router-link class="navbar-brand" :to="{ name: 'home' }">2020 Planner</router-link>
     <button
       class="navbar-toggler"
       type="button"
@@ -26,8 +26,13 @@
         </li>
       </ul>
       <span class="navbar-text">
-        <button class="btn btn-success" @click="login" v-if="!$auth.isAuthenticated">Login</button>
-        <button class="btn btn-danger" @click="logout" v-else>logout</button>
+        Hello {{AppState.profile.name}}
+        <button
+          class="btn btn-success"
+          @click="login"
+          v-if="!$auth.isAuthenticated"
+        >Login</button>
+        <button class="btn btn-danger" @click="logout" v-else>Logout</button>
       </span>
     </div>
   </nav>
@@ -35,18 +40,26 @@
 
 <script> 
 import { organizationService } from "../services/OrganizationService"
+import { api } from '../services/AxiosService';
+import { profileService } from "../services/ProfileService"
+import { reactive } from '@vue/composition-api';
+
 export default {
   name: "Navbar",
-  methods: {
-    async login() {
-      await this.$auth.loginWithPopup();
-      this.$store.dispatch("setBearer", this.$auth.bearer);
-      this.$store.dispatch("getProfile");
-      console.log("this.$auth.user: ");
-      console.log(this.$auth.user);
-    },
-    async logout() {
-      await this.$auth.logout({ returnTo: window.location.origin });
+  setup() {
+    let state = reactive({})
+    return {
+      state,
+      async login() {
+        await this.$auth.loginWithPopup();
+        if (this.$auth.bearer) {
+          api.defaults.headers.authorization = this.$auth.bearer
+          ProfileService.getProfile();
+        }
+      },
+      async logout() {
+        await this.$auth.logout({ returnTo: window.location.origin });
+      }
     }
   }
 };

@@ -7,6 +7,5 @@ export class Organization {
         this.id = id
         this.description = description
         this.creatorEmail = creatorEmail
-        this.someArray = []
     }
 }
