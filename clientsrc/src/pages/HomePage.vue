@@ -1,6 +1,7 @@
 <template>
   <div class="home">
     <h1>This is your home page.</h1>
+    organizations: {{AppState.organizations}}
   </div>
 </template>
 
@@ -24,7 +25,7 @@ export default {
     // NOTE Return should always include the state first, followed by the methods local to this component
     return {
       state,
-      addOrganization() {
+      async addOrganization() {
         await organizationService.create()
 
       }

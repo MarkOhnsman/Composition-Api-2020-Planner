@@ -9,13 +9,7 @@ const OrganizationSchema = new Schema({
     creatorEmail: { type: String, required: true }
 }, { timestamps: true, toJSON: { virtuals: true } })
 
-
-
-
 OrganizationSchema.loadClass(Organization)
-
-
-
 
 OrganizationSchema.virtual("creator",
     {

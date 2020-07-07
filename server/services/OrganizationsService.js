@@ -16,8 +16,14 @@ class OrganizationService {
     }
 
     async create(rawData) {
-        let data = await dbContext.OrgMembers.create(rawData)
-        return data.email
+        let org = await dbContext.Organizations.create(rawData)
+        let member = {
+            email: rawData.creatorEmail,
+            role: "director",
+            organization: org._id
+        }
+        await dbContext.OrgMembers.create(member)
+        return org
     }
 
     async edit(id, userEmail, update) {
@@ -33,6 +39,7 @@ class OrganizationService {
         if (!data) {
             throw new BadRequest("Invalid ID or you do not own this Organization");
         }
+        await dbContext.OrgMembers.deleteMany({ organization: id })
     }
 
 }

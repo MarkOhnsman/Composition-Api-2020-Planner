@@ -4,7 +4,7 @@ import { BadRequest } from "../utils/Errors"
 
 class OrgMembersService {
     async getAll(userEmail) {
-        return await dbContext.OrgMembers.find({ creatorEmail: userEmail }).populate("creator", "name picture")
+        return await dbContext.OrgMembers.find({ email: userEmail })
     }
 
     async getById(id, userEmail) {

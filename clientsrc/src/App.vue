@@ -20,9 +20,11 @@ export default {
       if (this.$auth.bearer) {
         api.defaults.headers.authorization = this.$auth.bearer
         await profileService.getProfile();
+        await organizationService.getMyOrganizations();
       }
       await organizationService.getAll()
     } catch (err) {
+      console.error(err)
       this.$router.push({ name: "home" });
     }
   },
@@ -38,13 +40,7 @@ export default {
 @import "bootstrap";
 @import "./assets/_overrides.scss";
 
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+
 
 #nav {
   padding: 30px;
@@ -53,9 +49,5 @@ export default {
 #nav a {
   font-weight: bold;
   color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
 }
 </style>

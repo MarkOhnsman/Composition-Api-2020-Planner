@@ -20,13 +20,13 @@
         <li
           class="nav-item"
           v-if="$auth.isAuthenticated"
-          :class="{ active: $route.name == 'boards' }"
+          :class="{ active: $route.name == 'Dashboard' }"
         >
-          <router-link class="nav-link" :to="{ name: 'boards' }">My-Dashboard</router-link>
+          <router-link class="nav-link" :to="{ name: 'dashboard' }">My-Dashboard</router-link>
         </li>
       </ul>
       <span class="navbar-text">
-        Hello {{AppState.profile.name}}
+        {{AppState.profile.name}}
         <button
           class="btn btn-success"
           @click="login"
@@ -47,14 +47,12 @@ import { reactive } from '@vue/composition-api';
 export default {
   name: "Navbar",
   setup() {
-    let state = reactive({})
     return {
-      state,
       async login() {
         await this.$auth.loginWithPopup();
         if (this.$auth.bearer) {
           api.defaults.headers.authorization = this.$auth.bearer
-          ProfileService.getProfile();
+          profileService.getProfile();
         }
       },
       async logout() {

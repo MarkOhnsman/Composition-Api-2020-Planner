@@ -20,10 +20,22 @@ class OrganizationService {
             console.error(e)
         }
     }
+
+    async getMyOrganizations() {
+        try {
+            let res = await api.get("/orgMembers/")
+            AppState.myOrgIds = res.data
+        }
+        catch (e) {
+            console.error(e)
+        }
+    }
+
     async create(org) {
         try {
             let res = await api.post("/organizations", org)
             AppState.organizations.push(new Organization(res.data))
+            this.getMyOrganizations()
         }
         catch (e) {
             console.error(e)
@@ -46,7 +58,7 @@ class OrganizationService {
     async delete(id) {
         try {
             await api.delete("/organizations/" + id)
-            AppState.organizations.filter(elem => elem.id != id)
+            AppState.organizations = AppState.organizations.filter(elem => elem.id != id)
         }
         catch (e) {
             console.error(e)
